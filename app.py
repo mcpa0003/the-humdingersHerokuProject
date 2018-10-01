@@ -24,7 +24,8 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth, parser=tweepy.parsers.JSONParser())
 
 # Load model
-nlp = en_core_web_sm.load()
+#nlp = en_core_web_sm.load()
+nlp = spacy.load('C:/Users/mcpar/Anaconda3/envs/PythonData/lib/site-packages/en_core_web_sm-2.0.0')
 
 
 def update_twitter():
