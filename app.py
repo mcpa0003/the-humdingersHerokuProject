@@ -91,18 +91,18 @@ def update_twitter():
 
 
     # Grab Self Tweets
-    tweets = api.user_timeline()
+tweets = api.user_timeline()
 
 # Confirm the target account has never been tweeted before
-    repeat = False
+repeat = False
 
-    for tweet in tweets:
-        if target_account in tweet["text"]:
-            repeat = True
-            print("Sorry. Repeat detected!")
+for tweet in tweets:
+    if target_account in tweet["text"]:
+        repeat = True
+        print("Sorry. Repeat detected!")
 
-        else:
-            continue
+    else:
+        continue
 
 
 # Have the Twitter bot update once a day for a week
@@ -117,4 +117,4 @@ while days < 7:
     time.sleep(300)
     
     # Update day counter
-    days += 1
+days += 1
