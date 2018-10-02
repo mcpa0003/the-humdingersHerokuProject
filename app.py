@@ -86,8 +86,11 @@ def update_twitter():
             plt.savefig("plot.png")
             api.update_with_media(
                 "plot.png", "Vader Sentiment Analysis for " + target_account
-            except Exception:
-        raise
+#            except Exception:
+#        raise
+    except (KeyError, IndexError):
+        print("Key or Index error")
+
 
     # Grab Self Tweets
     tweets = api.user_timeline()
