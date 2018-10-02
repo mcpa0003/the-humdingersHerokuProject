@@ -30,7 +30,7 @@ def update_twitter():
     tweets = api.user_timeline()
 
     # Create dictionary to hold text and label entities
-    tweet_dict = {"text": [], "label": []}
+    #tweet_dict = {"text": [], "label": []}
 
     mentions = api.search(q="@MichaelMcPart10 Analyze:")
     print(mentions)
@@ -86,8 +86,22 @@ def update_twitter():
         plt.savefig("plot.png")
         api.update_with_media(
                 "plot.png", "Vader Sentiment Analysis for " + target_account
-#            except Exception:
-#        raise
+
+    # Grab Self Tweets
+    tweets = api.user_timeline()
+
+    repeat = False
+
+    for tweet in tweets:
+        if target_account in tweet["text"]:
+            repeat = True
+            print("Sorry. Repeat detected!")
+
+        else:
+            continue
+
+
+# Have the Twitter bot update once a day for a week
 days = 0
 while days < 7:
     print(f"This is just daily Tweet # {days} to check-in. Have a nice day!")
@@ -100,6 +114,5 @@ while days < 7:
 
     # Update day counter
     days += 1
-
 
 
