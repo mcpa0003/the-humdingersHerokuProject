@@ -88,6 +88,18 @@ def update_twitter():
                 "plot.png", "Vader Sentiment Analysis for " + target_account
 #            except Exception:
 #        raise
+days = 0
+while days < 7:
+    print(f"This is just daily Tweet # {days} to check-in. Have a nice day!")
+
+    # Update the twitter
+    update_twitter()
+
+    # Wait a day
+    time.sleep(300)
+
+    # Update day counter
+    days += 1
 
 
 
