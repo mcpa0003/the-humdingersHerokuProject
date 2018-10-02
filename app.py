@@ -115,6 +115,8 @@ def update_twitter():
     except Exception:
         raise
 
+    tweets = api.user_timeline()
+
     repeat = False
 
     for tweet in tweets:
