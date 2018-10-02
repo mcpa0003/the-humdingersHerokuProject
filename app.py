@@ -109,9 +109,6 @@ def update_twitter():
                 "plot.png", "Vader Sentiment Analysis for " + target_account
 
 
-    except Exception as e:
-        raise
-
     # Grab Self Tweets
     tweets = api.user_timeline()
 
@@ -139,5 +136,6 @@ while days < 7:
 
     # Update day counter
     days += 1
-
+    except Exception:
+        raise
 
