@@ -27,6 +27,7 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth, parser=tweepy.parsers.JSONParser())
 
 def update_twitter():
+    tweets = api.user_timeline()
 
     # Create dictionary to hold text and label entities
     tweet_dict = {"text": [], "label": []}
@@ -90,31 +91,3 @@ def update_twitter():
 
 
 
-    # Grab Self Tweets
-tweets = api.user_timeline()
-
-# Confirm the target account has never been tweeted before
-repeat = False
-
-for tweet in tweets:
-    if target_account in tweet["text"]:
-        repeat = True
-        print("Sorry. Repeat detected!")
-
-    else:
-        continue
-
-
-# Have the Twitter bot update once a day for a week
-days = 0
-while days < 7:
-    print(f"This is just daily Tweet # {days} to check-in. Have a nice day!")
-
-    # Update the twitter
-    update_twitter()
-
-    # Wait a day
-    time.sleep(300)
-    
-    # Update day counter
-days += 1
