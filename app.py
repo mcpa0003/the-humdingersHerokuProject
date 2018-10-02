@@ -109,7 +109,7 @@ def update_twitter():
                 "plot.png", "Vader Sentiment Analysis for " + target_account
 
 
-    except Exception:
+    except Exception as e:
         raise
 
     # Grab Self Tweets
