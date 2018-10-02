@@ -64,24 +64,28 @@ def update_twitter():
                            "Tweets Ago": counter})
                                  
                 # Convert sentiments to DataFrame
-sentiments_pd = pd.DataFrame.from_dict(sentiments)
+            sentiments_pd = pd.DataFrame.from_dict(sentiments)
     # Create plot
-        plt.figure(figsize=(6, 4), dpi=300)
-        x_vals = sentiments_pd["Tweets Ago"]
-        y_vals = sentiments_pd["Compound"]
-        plt.plot(x_vals,
+            plt.figure(figsize=(6, 4), dpi=300)
+            x_vals = sentiments_pd["Tweets Ago"]
+            y_vals = sentiments_pd["Compound"]
+            plt.plot(x_vals,
                  y_vals, marker="o", linewidth=0.3,
                  alpha=0.8)
 #plt.figure(figsize=(6, 4), dpi=300)
 
 # # Incorporate the other graph properties
-        now = datetime.now()
-        now = now.strftime("%Y-%m-%d %H:%M")
-        plt.title(f"Sentiment Analysis of Tweets ({now}) for {target_user}")
-        plt.xlim([x_vals.max(),x_vals.min()]) #Bonus
-        plt.ylabel("Tweet Polarity")
-        plt.xlabel("Tweets Ago")
-        plt.figure(figsize=(6, 4), dpi=300)
+            now = datetime.now()
+            now = now.strftime("%Y-%m-%d %H:%M")
+            plt.title(f"Sentiment Analysis of Tweets ({now}) for {target_user}")
+            plt.xlim([x_vals.max(),x_vals.min()]) #Bonus
+            plt.ylabel("Tweet Polarity")
+            plt.xlabel("Tweets Ago")
+            plt.figure(figsize=(6, 4), dpi=300)
+#####            fig = bar.get_figure()
+            plt.savefig("plot.png")
+            api.update_with_media(
+                "plot.png", "Vader Sentiment Analysis for " + target_account
             except Exception:
         raise
 
