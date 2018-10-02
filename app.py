@@ -26,32 +26,52 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth, parser=tweepy.parsers.JSONParser())
 
+nlp = en_core_web_sm.load()
+
 def update_twitter():
-    tweets = api.user_timeline()
+
 
     # Create dictionary to hold text and label entities
-    #tweet_dict = {"text": [], "label": []}
+    tweet_dict = {"text": [], "label": []}
 
     mentions = api.search(q="@MichaelMcPart10 Analyze:")
     print(mentions)
     words = []
+    try:
 
-    command = mentions["statuses"][0]["text"]
-    words = command.split("Analyze:")
-    target_account = words[1].strip()
-    print(f"analysis for target_account: {target_account}")
-    user_tweets = api.user_timeline(target_account, page=1)
+        command = mentions["statuses"][0]["text"]
+        words = command.split("Analyze:")
+        target_account = words[1].strip()
+        print(f"analysis for target_account: {target_account}")
+        user_tweets = api.user_timeline(target_account, page=1)
         
-    sentiments = []
+        sentiments = []
 
         # Loop through tweets
-    for tweet in user_tweets:
+        for tweet in user_tweets:
+
+            doc = nlp(tweet["text"])
+
+            if not doc.ents:
+                print("No entities to visualize")
+                print("----------------------------")
+            else:
+                # Print the entities for each doc
+                for ent in doc.ents:
+                    # Store entities in dictionary
+                    tweet_dict["text"].append(ent.text)
+                    tweet_dict["label"].append(ent.label_)
                                 # Run Vader Analysis on each tweet
-        results = analyzer.polarity_scores(tweet["text"])
-        compound = results["compound"]
-        pos = results["pos"]
-        neu = results["neu"]
-        neg = results["neg"]
+                    results = analyzer.polarity_scores(tweet["text"])
+                    compound = results["compound"]
+                    pos = results["pos"]
+                    neu = results["neu"]
+                    neg = results["neg"]
+
+        tweet_df = pd.DataFrame(tweet_dict)
+        tweet_df.head()
+
+        label_frequency = tweet_df.groupby(["label"]).count()
         
         # Get Tweet ID, subtract 1, and assign to oldest_tweet
        ########### oldest_tweet = tweet['id'] - 1
@@ -66,6 +86,7 @@ def update_twitter():
                                  
                 # Convert sentiments to DataFrame
         sentiments_pd = pd.DataFrame.from_dict(sentiments)
+        sentiments_pd.head()
     # Create plot
         plt.figure(figsize=(6, 4), dpi=300)
         x_vals = sentiments_pd["Tweets Ago"]
@@ -86,6 +107,10 @@ def update_twitter():
         plt.savefig("plot.png")
         api.update_with_media(
                 "plot.png", "Vader Sentiment Analysis for " + target_account
+
+
+    except Exception:
+        raise
 
     # Grab Self Tweets
     tweets = api.user_timeline()
