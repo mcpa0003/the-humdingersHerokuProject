@@ -101,7 +101,7 @@ def update_twitter():
         #plt.figure(figsize=(6, 4), dpi=300)
     x_vals = sentiments_pd["Tweets Ago"]
     y_vals = sentiments_pd["Compound"]
-    bar = plt.plot(x_vals, y_vals, marker="o", linewidth=0.3, alpha=0.8)
+    plt.plot(x_vals, y_vals, marker="o", linewidth=0.3, alpha=0.8)
 #plt.figure(figsize=(6, 4), dpi=300)
 
 # # Incorporate the other graph properties
@@ -113,17 +113,17 @@ def update_twitter():
        # plt.xlabel("Tweets Ago")
         #plt.figure(figsize=(6, 4), dpi=300)
         #bar = label_frequency.plot.bar()
-    fig = bar.get_figure()
-    fig.savefig("box.png")
-    api.update_with_media("box.png", "Break down of tweet labels for " + target_account)
+    # fig = bar.get_figure()
+    # fig.savefig("box.png")
+    # api.update_with_media("box.png", "Break down of tweet labels for " + target_account)
 
 
 
 
 
-    # plt.savefig("plot.png")
-    # api.update_with_media(
-    #             "plot.png", "Vader Sentiment Analysis for " + target_account)
+    plt.savefig("plot.png")
+    api.update_with_media(
+                "plot.png", "Vader Sentiment Analysis for " + target_account)
 
 
     # Grab Self Tweets
@@ -146,17 +146,17 @@ def update_twitter():
 
 
 # Have the Twitter bot update once a day for a week
-    days = 0
-    while days < 7:
-        print(f"This is just daily Tweet # {days} to check-in. Have a nice day!")
+    # days = 0
+    # while days < 7:
+    #     print(f"This is just daily Tweet # {days} to check-in. Have a nice day!")
 
-    # Update the twitter
-        update_twitter()
+    # # Update the twitter
+    #     update_twitter()
 
-    # Wait a day
-        time.sleep(300)
+    # # Wait a day
+    #     time.sleep(300)
 
-    # Update day counter
-        days += 1
+    # # Update day counter
+    #     days += 1
     
 
