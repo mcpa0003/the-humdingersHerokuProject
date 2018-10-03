@@ -25,14 +25,14 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth, parser=tweepy.parsers.JSONParser())
 
-nlp = en_core_web_sm.load()
+#nlp = en_core_web_sm.load()
 
 def update_twitter():
 
 
     # Create dictionary to hold text and label entities
     #changing something to push.
-    tweet_dict = {"text": [], "label": []}
+    #tweet_dict = {"text": [], "label": []}
 
     mentions = api.search(q="@MichaelMcPart10 Analyze:")
     print(mentions)
@@ -44,49 +44,52 @@ def update_twitter():
         target_account = words[1].strip()
         print(f"analysis for target_account: {target_account}")
         user_tweets = api.user_timeline(target_account, page=1)
-        
+        counter = 1
         sentiments = []
 
         # Loop through tweets
-        for tweet in user_tweets:
+        #for tweet in user_tweets:
+        for x in range(15):
+            public_tweets = api.user_timeline(target_user, max_id = oldest_tweet)
+            for tweet in public_tweets:
 
             #doc = nlp(tweet["text"])
 
-            if not doc.ents:
-                print("No entities to visualize")
-                print("----------------------------")
-            else:
-                # Print the entities for each doc
-                for ent in doc.ents:
-                    # Store entities in dictionary
-                    tweet_dict["text"].append(ent.text)
-                    tweet_dict["label"].append(ent.label_)
+            # if not doc.ents:
+            #     print("No entities to visualize")
+            #     print("----------------------------")
+            # else:
+            #     # Print the entities for each doc
+            #     for ent in doc.ents:
+            #         # Store entities in dictionary
+            #         tweet_dict["text"].append(ent.text)
+            #         tweet_dict["label"].append(ent.label_)
                                 # Run Vader Analysis on each tweet
-                    results = analyzer.polarity_scores(tweet["text"])
-                    compound = results["compound"]
-                    pos = results["pos"]
-                    neu = results["neu"]
-                    neg = results["neg"]
+                results = analyzer.polarity_scores(tweet["text"])
+                compound = results["compound"]
+                pos = results["pos"]
+                neu = results["neu"]
+                neg = results["neg"]
 
-        tweet_df = pd.DataFrame(tweet_dict)
-        tweet_df.head()
+        # tweet_df = pd.DataFrame(tweet_dict)
+        # tweet_df.head()
 
-        label_frequency = tweet_df.groupby(["label"]).count()
+       # label_frequency = tweet_df.groupby(["label"]).count()
         
         # Get Tweet ID, subtract 1, and assign to oldest_tweet
        ########### oldest_tweet = tweet['id'] - 1
         
         # Add sentiments for each tweet into a list
-        sentiments.append({"Date": tweet["created_at"], 
+                sentiments.append({"Date": tweet["created_at"], 
                            "Compound": compound,
                            "Positive": pos,
                            "Negative": neu,
                            "Neutral": neg,
                            "Tweets Ago": counter})
-                                 
+                counter += 1                
                 # Convert sentiments to DataFrame
         sentiments_pd = pd.DataFrame.from_dict(sentiments)
-        sentiments_pd.head()
+       # sentiments_pd.head()
     # Create plot
         plt.figure(figsize=(6, 4), dpi=300)
         x_vals = sentiments_pd["Tweets Ago"]
