@@ -106,7 +106,7 @@ def update_twitter():
         plt.figure(figsize=(6, 4), dpi=300)
         plt.savefig("plot.png")
         api.update_with_media(
-                "plot.png", "Vader Sentiment Analysis for " + target_account
+                "plot.png", "Vader Sentiment Analysis for " + target_account)
 
 
     # Grab Self Tweets
