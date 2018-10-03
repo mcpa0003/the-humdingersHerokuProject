@@ -6,7 +6,8 @@ import time
 import spacy
 import en_core_web_sm
 #import matplotlib
-import matplotlib
+import matplotlib.pyplot as plt
+from matplotlib import style
 matplotlib.use("Agg")
 from datetime import datetime
 
@@ -91,7 +92,7 @@ def update_twitter():
         sentiments_pd = pd.DataFrame.from_dict(sentiments)
        # sentiments_pd.head()
     # Create plot
-        plt.figure(figsize=(6, 4), dpi=300)
+        #plt.figure(figsize=(6, 4), dpi=300)
         x_vals = sentiments_pd["Tweets Ago"]
         y_vals = sentiments_pd["Compound"]
         plt.plot(x_vals,
@@ -100,13 +101,13 @@ def update_twitter():
 #plt.figure(figsize=(6, 4), dpi=300)
 
 # # Incorporate the other graph properties
-        now = datetime.now()
-        now = now.strftime("%Y-%m-%d %H:%M")
-        plt.title(f"Sentiment Analysis of Tweets ({now}) for {target_user}")
-        plt.xlim([x_vals.max(),x_vals.min()]) #Bonus
+        # now = datetime.now()
+        # now = now.strftime("%Y-%m-%d %H:%M")
+        plt.title(f"Sentiment Analysis of Tweets ({now}) for {target_account}")
+        plt.xlim([x_vals.max(),x_vals.min()])
         plt.ylabel("Tweet Polarity")
         plt.xlabel("Tweets Ago")
-        plt.figure(figsize=(6, 4), dpi=300)
+        #plt.figure(figsize=(6, 4), dpi=300)
         plt.savefig("plot.png")
         api.update_with_media(
                 "plot.png", "Vader Sentiment Analysis for " + target_account)
