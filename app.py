@@ -7,8 +7,7 @@ import spacy
 import en_core_web_sm
 #import matplotlib
 import matplotlib
-from matplotlib import style
-style.use('ggplot')
+matplotlib.use("Agg")
 from datetime import datetime
 
 #matplotlib.use("Agg")
@@ -50,7 +49,7 @@ def update_twitter():
         # Loop through tweets
         for tweet in user_tweets:
 
-            doc = nlp(tweet["text"])
+            #doc = nlp(tweet["text"])
 
             if not doc.ents:
                 print("No entities to visualize")
