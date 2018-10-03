@@ -89,19 +89,14 @@ def update_twitter():
                            "Tweets Ago": counter})
                 counter += 1   
 
-    except Exception:
-        raise
-
-
-
                 # Convert sentiments to DataFrame
-    sentiments_pd = pd.DataFrame.from_dict(sentiments)
+        sentiments_pd = pd.DataFrame.from_dict(sentiments)
        # sentiments_pd.head()
     # Create plot
         #plt.figure(figsize=(6, 4), dpi=300)
-    x_vals = sentiments_pd["Tweets Ago"]
-    y_vals = sentiments_pd["Compound"]
-    plt.plot(x_vals, y_vals, marker="o", linewidth=0.3, alpha=0.8)
+        x_vals = sentiments_pd["Tweets Ago"]
+        y_vals = sentiments_pd["Compound"]
+        plt.plot(x_vals, y_vals, marker="o", linewidth=0.3, alpha=0.8)
 #plt.figure(figsize=(6, 4), dpi=300)
 
 # # Incorporate the other graph properties
@@ -121,16 +116,16 @@ def update_twitter():
 
 
 
-    plt.savefig("plot.png")
-    api.update_with_media(
+        plt.savefig("plot.png")
+        api.update_with_media(
                 "plot.png", "Vader Sentiment Analysis for " + target_account)
 
 
     # Grab Self Tweets
  #   tweets = api.user_timeline()
 
-    # except Exception:
-    #     raise
+     except Exception:
+         raise
 
     tweets = api.user_timeline()
 
