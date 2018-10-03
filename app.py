@@ -31,6 +31,7 @@ def update_twitter():
 
 
     # Create dictionary to hold text and label entities
+    #changing something to push.
     tweet_dict = {"text": [], "label": []}
 
     mentions = api.search(q="@MichaelMcPart10 Analyze:")
