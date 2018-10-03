@@ -7,7 +7,7 @@ import spacy
 import en_core_web_sm
 #import matplotlib
 import matplotlib
-from matplotlib import style
+
 matplotlib.use("Agg")
 from datetime import datetime
 
@@ -89,13 +89,13 @@ def update_twitter():
                            "Tweets Ago": counter})
                 counter += 1                
                 # Convert sentiments to DataFrame
-        sentiments_pd = pd.DataFrame.from_dict(sentiments)
+    sentiments_pd = pd.DataFrame.from_dict(sentiments)
        # sentiments_pd.head()
     # Create plot
         #plt.figure(figsize=(6, 4), dpi=300)
-        x_vals = sentiments_pd["Tweets Ago"]
-        y_vals = sentiments_pd["Compound"]
-        plt.plot(x_vals,
+    x_vals = sentiments_pd["Tweets Ago"]
+    y_vals = sentiments_pd["Compound"]
+    bar = plt.plot(x_vals,
                  y_vals, marker="o", linewidth=0.3,
                  alpha=0.8)
 #plt.figure(figsize=(6, 4), dpi=300)
@@ -103,14 +103,24 @@ def update_twitter():
 # # Incorporate the other graph properties
         # now = datetime.now()
         # now = now.strftime("%Y-%m-%d %H:%M")
-        plt.title(f"Sentiment Analysis of Tweets ({now}) for {target_account}")
-        plt.xlim([x_vals.max(),x_vals.min()])
-        plt.ylabel("Tweet Polarity")
-        plt.xlabel("Tweets Ago")
+      #  plt.title(f"Sentiment Analysis of Tweets ({now}) for {target_account}")
+       # plt.xlim([x_vals.max(),x_vals.min()])
+       # plt.ylabel("Tweet Polarity")
+       # plt.xlabel("Tweets Ago")
         #plt.figure(figsize=(6, 4), dpi=300)
-        plt.savefig("plot.png")
-        api.update_with_media(
-                "plot.png", "Vader Sentiment Analysis for " + target_account)
+        #bar = label_frequency.plot.bar()
+    fig = bar.get_figure()
+    fig.savefig("box.png")
+    api.update_with_media(
+            "box.png", "Break down of tweet labels for " + target_account
+
+
+
+
+
+    # plt.savefig("plot.png")
+    # api.update_with_media(
+    #             "plot.png", "Vader Sentiment Analysis for " + target_account)
 
 
     # Grab Self Tweets
