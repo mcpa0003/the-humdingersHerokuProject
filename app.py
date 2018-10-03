@@ -124,8 +124,8 @@ def update_twitter():
     # Grab Self Tweets
  #   tweets = api.user_timeline()
 
-     except Exception:
-         raise
+    except Exception:
+        raise
 
     tweets = api.user_timeline()
 
