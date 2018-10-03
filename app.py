@@ -6,7 +6,7 @@ import time
 import spacy
 import en_core_web_sm
 #import matplotlib
-import matplotlib.pyplot as plt
+import matplotlib
 from matplotlib import style
 matplotlib.use("Agg")
 from datetime import datetime
